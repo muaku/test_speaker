@@ -7,7 +7,7 @@ import sys
 from time import sleep
 
 if __name__=='__main__':
-    commandText = u'/root/AquesTalkPi \"今日はケニーさん.今日の笑顔はいいですね.何か良いことありましたか.\" | sox -t wav -c1 - -t wav -c2 /dev/stdout | aplay -Dhw:2,0'
+    commandText = u'/root/AquesTalkPi \"こんにちはケニーさん.今日の笑顔はいいですね.何か良いことありましたか.\" | sox -t wav -c1 - -t wav -c2 /dev/stdout | aplay -Dhw:2,0'
     subprocess.call(commandText, shell=True)
     sleep(1)
     commandText1 = u'/root/AquesTalkPi \"でも今朝は少しお熱があるみたい.体温計ってもらいましょう.\" | sox -t wav -c1 - -t wav -c2 /dev/stdout | aplay -Dhw:2,0'
