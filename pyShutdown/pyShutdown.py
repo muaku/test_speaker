@@ -4,8 +4,8 @@ import threading
 GPIO.setmode(GPIO.BCM)		# GPIO has 2 types of numbering system (this one is mainly used)
 GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)		# set pin mode, set pin 5 as an INPUT (3th param is optional)
 GPIO.setup(6, GPIO.OUT)		# set pin 6 as an OUTPUT
-GPIO.setup(12, OUT)			# WDT 
-GPIO.setup(13, OUT)			# LED brink
+GPIO.setup(12, GPIO.OUT)			# WDT 
+GPIO.setup(13, GPIO.OUT)			# LED brink
 
 state = False				# initialize state as LOW
 
