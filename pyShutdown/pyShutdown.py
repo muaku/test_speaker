@@ -17,16 +17,18 @@ def SHUT_REQ():
 	# TODO: Run SHUT_DOWN func, if success then output pin 6 as HIGH
 	print("TODO: Shutdown process")
 	shutdown()
-	# SHUT_ACK
-	print("TODO: pin6 HIGH")	
-	GPIO.output(6, GPIO.HIGH)
 
 # Shutdown
 def shutdown():
 	command = "/usr/bin/sudo /sbin/shutdown -h now"			# -h: halt the system
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 	output = process.communicate()[0]
-	print output	
+	if output == "Terminated":
+		# SHUT_ACK
+		print("TODO: pin6 HIGH")	
+		GPIO.output(6, GPIO.HIGH)
+		print output
+		
 
 # Observe state
 def WDT():
