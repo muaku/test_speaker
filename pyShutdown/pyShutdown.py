@@ -21,9 +21,12 @@ def SHUT_REQ():
 # Observe state
 def WDT():
 	#  ouput 4min per 1 time
+	if state:
+		state = False
+	else:
+		state = True
 	threading.Timer(5, WDT).start()
 	GPIO.output(12, state)
-	state = not state
 	print state
 
 WDT()
