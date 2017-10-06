@@ -23,12 +23,13 @@ def shutdown():
 	command = "/usr/bin/sudo /sbin/shutdown -h now"			# -h: halt the system
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 	output = process.communicate()[0]
-	if output == "Terminated":
-		# SHUT_ACK
-		print("TODO: pin6 HIGH")	
-		GPIO.output(6, GPIO.HIGH)
-		print output
-		
+	GPIO.output(6, GPIO.HIGH)		#print("TODO: pin6 HIGH")	
+	print output
+	# if output == "Terminated":
+	# 	# SHUT_ACK
+	# 	print("TODO: pin6 HIGH")	
+	# 	GPIO.output(6, GPIO.HIGH)
+	# 	print output
 
 # Observe state
 def WDT():
@@ -56,8 +57,9 @@ def restart():
 	print output
 
 # test: shutdown when reach 10 sec
-signal.signal(signal.SIGALRM, shutdown)
-signal.alarm(10)
+# signal.signal(signal.SIGALRM, shutdown)
+# signal.alarm(10)
+
 # Attached Events and callback funtions to pin 5 (it run on separate thread)
 # FALLING: When gpio going from high to low
 # to remove event
