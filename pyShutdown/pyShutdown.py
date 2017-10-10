@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import threading
 import subprocess
 import signal
+from time import sleep
 
 GPIO.setmode(GPIO.BCM)		# GPIO has 2 types of numbering system (this one is mainly used)
 GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)		# set pin mode, set pin 5 as an INPUT (3th param is optional)
@@ -14,7 +15,8 @@ state = False				# initialize state as LOW
 def SHUT_REQ():
 	# Start shutdown process
 	GPIO.output(6, GPIO.LOW)	# GPIO.LOW or 0 or False (SUT_ACK)
-	# TODO: Run SHUT_DOWN func, if success then output pin 6 as HIGH
+	sleep(1)
+	# TODO: Run SHUT_DOWN func
 	print("TODO: Shutdown process")
 	shutdown()
 
@@ -23,13 +25,8 @@ def shutdown():
 	command = "/usr/bin/sudo /sbin/shutdown -h now"			# -h: halt the system
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 	output = process.communicate()[0]
-	GPIO.output(6, GPIO.HIGH)		#print("TODO: pin6 HIGH")	
-	print output
-	# if output == "Terminated":
-	# 	# SHUT_ACK
-	# 	print("TODO: pin6 HIGH")	
-	# 	GPIO.output(6, GPIO.HIGH)
-	# 	print output
+	print(output)
+	
 
 # Observe state
 def WDT():
@@ -39,9 +36,9 @@ def WDT():
 		state = False
 	else:
 		state = True
-	threading.Timer(5, WDT).start()
+	threading.Timer(240, WDT).start()
 	GPIO.output(12, state)
-	print state
+	print(state)
 
 WDT()
 
@@ -54,7 +51,7 @@ def restart():
 	command = "/usr/bin/sudo /sbin/shutdown -r now"
 	process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 	output = process.communicate()[0]
-	print output
+	print (output)
 
 # test: shutdown when reach 10 sec
 # signal.signal(signal.SIGALRM, shutdown)
